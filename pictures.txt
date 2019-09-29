@@ -1,0 +1,10 @@
+CREATE TABLE [dbo].[Pictures] (
+    [Id]   INT            IDENTITY (1, 1) NOT NULL,
+    [Path] NVARCHAR (MAX) NOT NULL,
+    [Exif_Model] NVARCHAR(50) NULL, 
+    [Exif_FNumber] INT NULL, 
+    [Exif_ExposureTimeMS] INT NULL, 
+    [Exif_DateTime] DATETIME NULL, 
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

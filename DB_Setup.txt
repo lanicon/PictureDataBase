@@ -1,0 +1,101 @@
+DROP TABLE IF EXISTS Pictures_Tags;
+DROP TABLE IF EXISTS Pictures;
+DROP TABLE IF EXISTS Photographers;
+DROP TABLE IF EXISTS Tags;
+ 
+ 
+CREATE TABLE [dbo].[Photographers] (
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
+    [FirstName] VARCHAR(100) NULL,
+    [LastName] VARCHAR(50) NOT NULL,
+    [Birthday] DATE NULL,
+    [Notes] TEXT NULL
+);
+ 
+CREATE TABLE [dbo].[Pictures] (
+    [Id] INT IDENTITY (1, 1) NOT NULL,
+    [Path] NVARCHAR (MAX) NOT NULL,
+    [Exif_Model] NVARCHAR(50) NULL, 
+    [Exif_FNumber] FLOAT NULL, 
+    [Exif_ExposureTimeMS] INT NULL, 
+    [Exif_DateTime] DATETIME NULL,
+    [Iptc_City] NVARCHAR(50) NULL,
+    [Iptc_Caption] NVARCHAR(200) NULL,
+    [Iptc_Headline] NVARCHAR(50) NULL,
+    [Photographer_Id] INT NOT NULL REFERENCES Photographers(Id),
+    PRIMARY KEY ([Id] ASC),
+);
+ 
+CREATE TABLE [dbo].[Tags] (
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Tag] VARCHAR(50) NULL
+);
+ 
+CREATE TABLE [dbo].[Pictures_Tags] (
+    [Picture_Id] INT NOT NULL REFERENCES Pictures(Id),
+    [Tag_ID] INT NOT NULL REFERENCES Tags(Id),
+    PRIMARY KEY (Picture_Id, Tag_Id)
+);
+ 
+INSERT INTO Tags("Tag") VALUES ('City');
+INSERT INTO Tags("Tag") VALUES ('Day');
+INSERT INTO Tags("Tag") VALUES ('Night');
+INSERT INTO Tags("Tag") VALUES ('Person');
+INSERT INTO Tags("Tag") VALUES ('Square');
+ 
+INSERT INTO Photographers("FirstName", "LastName", "Birthday", "Notes") VALUES ('MAX', 'MUSTER', '1995-02-28', 'Professional!');
+INSERT INTO Photographers("FirstName", "LastName", "Birthday", "Notes") VALUES ('MAX', 'MUSTER', '1995-02-28', 'Professional!');
+INSERT INTO Photographers("FirstName", "LastName", "Birthday", "Notes") VALUES ('MAX', 'MUSTER', '1995-02-28', 'Professional!');
+INSERT INTO Photographers("FirstName", "LastName", "Birthday", "Notes") VALUES ('MAX', 'MUSTER', '1995-02-28', 'Professional!');
+ 
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Huawei Nova', 4, 5, '2018-10-22 15:04:00', 'Grote Markt', 'Den Haag', 'Grote Markt at Dawn', 1);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Huawei Nova', 8, 5, '2018-10-22 15:35:10', 'Prison Museum', 'Den Haag', 'View on Prison Museum', 1);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Huawei Nova', 8, 5, '2018-10-22 15:38:50', 'Binnenhof', 'Den Haag', 'Binnenhof from Bridge', 1);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Nikon 1', 4, 10, '2018-11-05 11:15:40', 'Center of the Hague', 'Den Haag', 'Center', 2);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Nikon 1', 4, 10, '2018-11-15 21:00:00', 'Binnenhof at Night', 'Den Haag', 'Binnenhof Inside', 2);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Huawei Nova', 2, 10, '2018-12-03 22:02:56', 'Central Square with Trees', 'Den Haag', 'Central Square', 3);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Huawei Nova', 2, 10, '2018-12-03 22:03:30', 'Central Square with Trees 2', 'Den Haag', 'Central Square', 3);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Huawei Nova', 2, 10, '2018-12-03 22:05:10', 'The Hague Skyline at Night', 'Den Haag', 'The Hague Skyline', 3);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Huawei Nova', 2, 10, '2018-12-03 22:05:50', 'The Hague Skyline at Night 2', 'Den Haag', 'The Hague Skyline', 3);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'Huawei Nova', 2, 10, '2018-12-03 22:07:20', 'The Hague Skyline at Night 3', 'Den Haag', 'The Hague Skyline', 3);
+INSERT INTO Pictures("Path", "Exif_Model", "Exif_FNumber", "Exif_ExposureTimeMS", "Exif_DateTime", "Iptc_Caption", "Iptc_City", "Iptc_Headline", "Photographer_Id") VALUES (
+'C:\Users\PATH_TO_YOUR_PICTURE.jpg', 'IPhone 7', 8, 3, '2018-12-19 15:47:05', 'Me touching a raven', 'Den Haag', 'Raven', 4);
+ 
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (1, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (1, 2);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (1, 5);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (2, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (2, 2);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (3, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (3, 2);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (4, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (5, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (5, 3);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (5, 5);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (6, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (6, 3);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (6, 5);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (7, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (7, 3);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (7, 5);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (8, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (8, 3);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (8, 5);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (9, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (9, 3);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (9, 5);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (10, 1);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (10, 3);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (10, 5);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (11, 2);
+INSERT INTO Pictures_Tags("Picture_Id", "Tag_ID") VALUES (11, 4);
